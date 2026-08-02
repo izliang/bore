@@ -1,0 +1,330 @@
+{
+  "type": "page",
+  "title": "$t.dashboard.title",
+  "aside": {
+    "type": "wrapper",
+    "size": "none",
+    "body": [
+      {
+        "type": "tpl",
+        "tpl": "<div style='padding:28px 20px 20px;border-bottom:1px solid var(--borderColor,#e8e8e8);text-align:center'><div style='display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#a855f7 100%);margin-bottom:12px;box-shadow:0 4px 14px rgba(99,102,241,0.35)'><span style='font-size:26px;line-height:1;color:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.2))'>⚡</span></div><div style='font-size:17px;font-weight:700;color:var(--textColor,#1a1a2e);line-height:1.3;letter-spacing:0.3px'>bore</div><div style='font-size:11px;color:var(--text--muted-color,#8899bb);margin-top:4px;font-weight:500'>AI Platform</div></div>"
+      },
+      {
+        "type": "nav",
+        "stacked": true,
+        "className": "w-52 flex-auto",
+        "style": {
+          "paddingTop": "4px"
+        },
+        "links": [
+          {
+            "label": "$t.dashboard.title",
+            "to": "/admin/dashboard",
+            "icon": "fa fa-dashboard",
+            "active": true
+          },
+          {
+            "label": "$t.users.title",
+            "to": "/admin/users",
+            "icon": "fa fa-users",
+            "active": false
+          },
+          {
+            "label": "$t.models.title",
+            "to": "/admin/models",
+            "icon": "fa fa-cubes",
+            "active": false
+          },
+          {
+            "label": "$t.settings.title",
+            "to": "/admin/settings",
+            "icon": "fa fa-cog",
+            "active": false
+          }
+        ]
+      }
+    ]
+  },
+  "asideResizor": true,
+  "toolbar": [
+    {
+      "type": "tpl",
+      "tpl": "<span class='text-muted' style='font-size:13px;margin:0 4px'>👤 admin</span>"
+    },
+    {
+      "type": "button",
+      "label": "$t.common.logout",
+      "icon": "fa fa-sign-out",
+      "level": "link",
+      "actionType": "url",
+      "url": "/api/logout",
+      "blank": false
+    }
+  ],
+  "body": [
+    {
+      "type": "grid",
+      "columns": [
+        {
+          "body": [
+            {
+              "type": "card",
+              "className": "shadow-sm",
+              "header": {
+                "title": "$t.dashboard.activeUsers",
+                "subTitle": "$t.dashboard.activeUsersDesc"
+              },
+              "body": [
+                {
+                  "type": "flex",
+                  "justify": "space-between",
+                  "alignItems": "center",
+                  "items": [
+                    {
+                      "type": "wrapper",
+                      "size": "none",
+                      "body": [
+                        {
+                          "type": "tpl",
+                          "tpl": "<div style='font-size:32px;font-weight:700;color:#4e79f6;line-height:1.2'>12,846</div>"
+                        },
+                        {
+                          "type": "tpl",
+                          "tpl": "<span style='font-size:12px;color:#22c55e'>↑ 12.5% vs last week</span>"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "icon",
+                      "icon": "fa fa-users",
+                      "className": "fa-2x",
+                      "style": {
+                        "color": "#4e79f6",
+                        "opacity": "0.3",
+                        "fontSize": "48px"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "body": [
+            {
+              "type": "card",
+              "className": "shadow-sm",
+              "header": {
+                "title": "$t.dashboard.todaysOrders",
+                "subTitle": "$t.dashboard.todaysOrdersDesc"
+              },
+              "body": [
+                {
+                  "type": "flex",
+                  "justify": "space-between",
+                  "alignItems": "center",
+                  "items": [
+                    {
+                      "type": "wrapper",
+                      "size": "none",
+                      "body": [
+                        {
+                          "type": "tpl",
+                          "tpl": "<div style='font-size:32px;font-weight:700;color:#22c55e;line-height:1.2'>3,421</div>"
+                        },
+                        {
+                          "type": "tpl",
+                          "tpl": "<span style='font-size:12px;color:#22c55e'>↑ 8.2% vs yesterday</span>"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "icon",
+                      "icon": "fa fa-shopping-cart",
+                      "className": "fa-2x",
+                      "style": {
+                        "color": "#22c55e",
+                        "opacity": "0.3",
+                        "fontSize": "48px"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "body": [
+            {
+              "type": "card",
+              "className": "shadow-sm",
+              "header": {
+                "title": "$t.dashboard.revenue",
+                "subTitle": "$t.dashboard.revenueDesc"
+              },
+              "body": [
+                {
+                  "type": "flex",
+                  "justify": "space-between",
+                  "alignItems": "center",
+                  "items": [
+                    {
+                      "type": "wrapper",
+                      "size": "none",
+                      "body": [
+                        {
+                          "type": "tpl",
+                          "tpl": "<div style='font-size:32px;font-weight:700;color:#f59e0b;line-height:1.2'>¥128K</div>"
+                        },
+                        {
+                          "type": "tpl",
+                          "tpl": "<span style='font-size:12px;color:#ef4444'>↓ 3.1% vs last month</span>"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "icon",
+                      "icon": "fa fa-rmb",
+                      "className": "fa-2x",
+                      "style": {
+                        "color": "#f59e0b",
+                        "opacity": "0.3",
+                        "fontSize": "48px"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "body": [
+            {
+              "type": "card",
+              "className": "shadow-sm",
+              "header": {
+                "title": "$t.dashboard.gpuUtilization",
+                "subTitle": "$t.dashboard.gpuUtilizationDesc"
+              },
+              "body": [
+                {
+                  "type": "flex",
+                  "justify": "space-between",
+                  "alignItems": "center",
+                  "items": [
+                    {
+                      "type": "wrapper",
+                      "size": "none",
+                      "body": [
+                        {
+                          "type": "tpl",
+                          "tpl": "<div style='font-size:32px;font-weight:700;color:#8b5cf6;line-height:1.2'>76.8%</div>"
+                        },
+                        {
+                          "type": "tpl",
+                          "tpl": "<span style='font-size:12px;color:#22c55e'>↑ 5.3% vs yesterday</span>"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "icon",
+                      "icon": "fa fa-server",
+                      "className": "fa-2x",
+                      "style": {
+                        "color": "#8b5cf6",
+                        "opacity": "0.3",
+                        "fontSize": "48px"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "grid",
+      "className": "mt-3",
+      "columns": [
+        {
+          "md": 8,
+          "body": {
+            "type": "panel",
+            "title": "$t.dashboard.recentActivity",
+            "className": "shadow-sm",
+            "body": {
+              "type": "service",
+              "api": "/api/activities",
+              "body": {
+                "type": "table",
+                "source": "${items}",
+                "columns": [
+                  {
+                    "name": "time",
+                    "label": "$t.table.time"
+                  },
+                  {
+                    "name": "user",
+                    "label": "$t.table.user"
+                  },
+                  {
+                    "name": "action",
+                    "label": "$t.table.action"
+                  },
+                  {
+                    "name": "status",
+                    "label": "$t.table.status",
+                    "type": "mapping",
+                    "map": {
+                      "success": "<span class='label label-success'>Success</span>",
+                      "failed": "<span class='label label-danger'>Failed</span>"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "md": 4,
+          "body": {
+            "type": "panel",
+            "title": "$t.dashboard.systemInfo",
+            "className": "shadow-sm",
+            "body": {
+              "type": "service",
+              "api": "/api/system-info",
+              "body": {
+                "type": "property",
+                "column": 1,
+                "items": [
+                  {
+                    "label": "$t.settings.version",
+                    "content": "${version}"
+                  },
+                  {
+                    "label": "Go",
+                    "content": "${goVersion}"
+                  },
+                  {
+                    "label": "$t.settings.running",
+                    "content": "${uptime}"
+                  },
+                  {
+                    "label": "$t.settings.memory",
+                    "content": "${memory}"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

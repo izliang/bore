@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="{{.Locale}}" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{.Title}}</title>
+    {{range .CSSURLs}}
+    <link rel="stylesheet" href="{{.}}" />
+    {{end}}
+    <style>
+        html, body, #root { margin: 0; padding: 0; height: 100%; }
+    </style>
+    {{if .ExtraCSS}}
+    <style>
+        {{.ExtraCSS}}
+    </style>
+    {{end}}
+</head>
+<body>
+    <div id="root"></div>
+    {{range .JSURLs}}
+    <script src="{{.}}"></script>
+    {{end}}
+    <script type="text/javascript">
+        (function() {
+            // ── 暗黑模式初始化 ──────────────────────────
+            var isDark = localStorage.getItem('amis-theme') === 'dark';
+            if (isDark) document.documentElement.classList.add('dark');
+
+            // ── 响应格式适配（由 Go 侧 ResponseAdapter 生成） ─
+            {{.AdapterJS}}
+
+            // ── 默认 fetcher ────────────────────────────
+            function defaultFetcher(config) {
+                config = config || {};
+                var url=config.url,method=(config.method||'get').toLowerCase(),data=config.data,headers={};
+                if(config.headers) for(var k in config.headers) if(config.headers.hasOwnProperty(k)) headers[k]=config.headers[k];
+                var opts={method:method,headers:headers};
+                if(data&&(method==='get'||method==='head')){
+                    var p=new URLSearchParams();
+                    for(var k in data) if(data.hasOwnProperty(k)) p.append(k,data[k]);
+                    var q=p.toString();if(q) url+=(url.indexOf('?')===-1?'?':'&')+q;
+                }else if(data){opts.body=JSON.stringify(data);headers['Content-Type']='application/json';}
+                return fetch(url,opts).then(function(r){return r.json().then(function(d){return adaptAmisResponse(d);});});
+            }
+
+            // ── 渲染 amis ───────────────────────────────
+            var amisEmbed = amisRequire('amis/embed');
+            var schema = {{.SchemaJSON}};
+            var props = {__dark: isDark};
+            {{if .Locale}}
+            props.locale = '{{.Locale}}';
+            {{end}}
+            var env = {
+                location: window.location,
+                fetcher: defaultFetcher
+            };
+            {{if .ReplaceTextJSON}}
+            env.replaceText = {{.ReplaceTextJSON}};
+            {{end}}
+            amisEmbed.embed('#root', schema, props, env);
+        })();
+    </script>
+    {{if .ExtraJS}}
+    <script type="text/javascript">
+        {{.ExtraJS}}
+    </script>
+    {{end}}
+</body>
+</html>

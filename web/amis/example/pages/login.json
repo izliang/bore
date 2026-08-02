@@ -1,0 +1,77 @@
+{
+  "type": "page",
+  "title": "",
+  "body": [
+    {
+      "type": "wrapper",
+      "style": {
+        "display": "flex",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "height": "100vh",
+        "background": "linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)"
+      },
+      "body": {
+        "type": "container",
+        "style": {
+          "width": "400px",
+          "padding": "48px 40px 36px",
+          "background": "#fff",
+          "borderRadius": "12px",
+          "boxShadow": "0 20px 60px rgba(0,0,0,0.5)"
+        },
+        "body": [
+          {
+            "type": "tpl",
+            "tpl": "<div style='text-align:center;margin-bottom:32px'><div style='font-size:42px;margin-bottom:4px'>⚡</div><h2 style='margin:0;font-size:22px;font-weight:700;color:#1a1a2e'>bore</h2><p style='margin:6px 0 0;color:#8899aa;font-size:13px'>Enterprise AI Platform</p></div>"
+          },
+          {
+            "type": "form",
+            "title": "",
+            "mode": "normal",
+            "wrapWithPanel": false,
+            "api": {"method": "post", "url": "/api/login"},
+            "body": [
+              {
+                "type": "input-text",
+                "name": "username",
+                "label": "$t.auth.username",
+                "placeholder": "$t.auth.usernamePlaceholder",
+                "required": true,
+                "size": "full"
+              },
+              {
+                "type": "input-password",
+                "name": "password",
+                "label": "$t.auth.password",
+                "placeholder": "$t.auth.passwordPlaceholder",
+                "required": true,
+                "size": "full"
+              },
+              {
+                "type": "button",
+                "label": "$t.common.signIn",
+                "level": "primary",
+                "block": true,
+                "size": "lg",
+                "actionType": "submit"
+              }
+            ],
+            "onEvent": {
+              "submitSucc": {
+                "actions": [{
+                  "actionType": "url",
+                  "args": {"url": "${event.data.result.data.redirect || '/admin/dashboard'}", "blank": false}
+                }]
+              }
+            }
+          },
+          {
+            "type": "tpl",
+            "tpl": "<div style='text-align:center;margin-top:20px;color:#bcc;font-size:12px'>Demo: admin / admin123</div>"
+          }
+        ]
+      }
+    }
+  ]
+}

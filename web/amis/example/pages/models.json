@@ -1,0 +1,215 @@
+{
+  "type": "page",
+  "title": "$t.models.title",
+  "aside": {
+    "type": "wrapper",
+    "size": "none",
+    "body": [
+      {
+        "type": "tpl",
+        "tpl": "<div style='padding:28px 20px 20px;border-bottom:1px solid var(--borderColor,#e8e8e8);text-align:center'><div style='display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#a855f7 100%);margin-bottom:12px;box-shadow:0 4px 14px rgba(99,102,241,0.35)'><span style='font-size:26px;line-height:1;color:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,0.2))'>⚡</span></div><div style='font-size:17px;font-weight:700;color:var(--textColor,#1a1a2e);line-height:1.3;letter-spacing:0.3px'>bore</div><div style='font-size:11px;color:var(--text--muted-color,#8899bb);margin-top:4px;font-weight:500'>AI Platform</div></div>"
+      },
+      {
+        "type": "nav",
+        "stacked": true,
+        "className": "w-52 flex-auto",
+        "style": {
+          "paddingTop": "4px"
+        },
+        "links": [
+          {
+            "label": "Dashboard",
+            "to": "/admin/dashboard",
+            "icon": "fa fa-dashboard",
+            "active": false
+          },
+          {
+            "label": "User Management",
+            "to": "/admin/users",
+            "icon": "fa fa-users",
+            "active": false
+          },
+          {
+            "label": "$t.models.title",
+            "to": "/admin/models",
+            "icon": "fa fa-cubes",
+            "active": true
+          },
+          {
+            "label": "Settings",
+            "to": "/admin/settings",
+            "icon": "fa fa-cog",
+            "active": false
+          }
+        ]
+      }
+    ]
+  },
+  "asideResizor": true,
+  "toolbar": [
+    {
+      "type": "tpl",
+      "tpl": "<span class='text-muted' style='font-size:13px;margin:0 4px'>👤 admin</span>"
+    },
+    {
+      "type": "button",
+      "label": "$t.common.logout",
+      "icon": "fa fa-sign-out",
+      "level": "link",
+      "actionType": "url",
+      "url": "/api/logout",
+      "blank": false
+    }
+  ],
+  "body": {
+    "type": "crud",
+    "syncLocation": false,
+    "api": "/api/models",
+    "filter": {
+      "body": [
+        {
+          "type": "input-text",
+          "name": "keywords",
+          "label": "",
+          "placeholder": "$t.models.searchPlaceholder",
+          "clearable": true,
+          "size": "md"
+        },
+        {
+          "type": "select",
+          "name": "status",
+          "label": "",
+          "placeholder": "$t.models.statusFilter",
+          "clearable": true,
+          "options": [
+            {
+              "label": "$t.status.running",
+              "value": "active"
+            },
+            {
+              "label": "$t.status.stopped",
+              "value": "inactive"
+            }
+          ]
+        }
+      ]
+    },
+    "headerToolbar": [
+      {
+        "type": "button",
+        "label": "$t.models.add",
+        "icon": "fa fa-plus",
+        "level": "primary",
+        "actionType": "dialog",
+        "dialog": {
+          "title": "$t.models.add",
+          "size": "md",
+          "body": {
+            "type": "form",
+            "api": "post:/api/models",
+            "body": [
+              {
+                "type": "input-text",
+                "name": "name",
+                "label": "$t.models.name",
+                "required": true
+              },
+              {
+                "type": "input-text",
+                "name": "version",
+                "label": "Version",
+                "required": true
+              },
+              {
+                "type": "textarea",
+                "name": "description",
+                "label": "$t.table.description"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "footerToolbar": [
+      "statistics",
+      "pagination"
+    ],
+    "columns": [
+      {
+        "name": "id",
+        "label": "ID",
+        "width": 50
+      },
+      {
+        "name": "name",
+        "label": "$t.models.name",
+        "searchable": true
+      },
+      {
+        "name": "version",
+        "label": "Version",
+        "width": 70
+      },
+      {
+        "name": "status",
+        "label": "$t.table.status",
+        "width": 80,
+        "type": "mapping",
+        "map": {
+          "active": "<span class='label label-success'>Running</span>",
+          "inactive": "<span class='label label-default'>Stopped</span>"
+        }
+      },
+      {
+        "name": "description",
+        "label": "$t.table.description"
+      },
+      {
+        "type": "operation",
+        "label": "Action",
+        "width": 120,
+        "buttons": [
+          {
+            "type": "button",
+            "label": "Editor",
+            "level": "link",
+            "actionType": "dialog",
+            "dialog": {
+              "title": "$t.models.edit",
+              "body": {
+                "type": "form",
+                "api": "put:/api/models/${id}",
+                "body": [
+                  {
+                    "type": "input-text",
+                    "name": "name",
+                    "label": "$t.models.name"
+                  },
+                  {
+                    "type": "input-text",
+                    "name": "version",
+                    "label": "Version"
+                  },
+                  {
+                    "type": "textarea",
+                    "name": "description",
+                    "label": "$t.table.description"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "button",
+            "label": "$t.common.delete",
+            "level": "link",
+            "className": "text-danger",
+            "actionType": "ajax",
+            "api": "delete:/api/models/${id}",
+            "confirmText": "$t.models.confirmDelete"
+          }
+        ]
+      }
+    ]
+  }
+}
